@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome to Lottery Super-Mega-3{% endblock %}
+
+{% block body %}
+{#TODO: move styles to stylesheets with version assets in a future#}
+<style>
+    .wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="wrapper">
+    <h1>Welcome to Lottery Super-Mega-3</h1>
+
+    You can be winner in few steps
+    and win:
+    <ul>
+        <li>Money to your wallet or Payment Card</li>
+        <li>Bonuses for another games</li>
+        <li>Real gifts that we'll send to your home address</li>
+    </ul>
+    What you need?
+    Only <a class="login" href="{{ path("app_login") }}">Login</a> and play game ;-)
+</div>
+{% endblock %}

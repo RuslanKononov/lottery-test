@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Play Game{% endblock %}
+
+{% block body %}
+
+<div class="wrapper">
+    <h1>Welcome to Lottery Super-Mega-3</h1>
+
+    <form method="post">
+
+        {% if app.user %}
+            <div class="mb-3">
+                You are logged in as {{ app.user.username }}, your balanse is {{ app.user.balance is defined and app.user.balance is not null ? app.user.balance : 0 }} coins. <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+        {#
+            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+            See https://symfony.com/doc/current/security/remember_me.html
+
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" name="_remember_me"> Remember me
+                </label>
+            </div>
+        #}
+
+        <button class="btn btn-lg btn-primary" type="submit">
+            Play
+        </button>
+    </form>
+</div>
+{% endblock %}
