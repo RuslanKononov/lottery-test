@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Model\UserDTO;
+use App\Model\ValueObject\UserInvoice;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -21,7 +22,7 @@ class Users implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=255)
+     * @ORM\Column(name="username", type="string", length=255, unique=true)
      */
     private $username;
 
@@ -47,6 +48,12 @@ class Users implements UserInterface
     private $salt = null;
 
     /**
+     * @ORM\Embedded(class="App\Model\ValueObject\UserInvoice")
+     * @var UserInvoice
+     */
+    private $userInvoice;
+
+    /**
      * User constructor.
      *
      * @param UserDTO $userDTO
@@ -56,6 +63,7 @@ class Users implements UserInterface
         $this->username = $userDTO->getUsername();
         $this->password = $userDTO->getPassword();
         $this->roles = $userDTO->getRoles();
+        $this->userInvoice = new UserInvoice();
     }
 
     /**
@@ -142,6 +150,26 @@ class Users implements UserInterface
     public function setSalt(?string $salt = null): self
     {
         $this->salt = $salt;
+
+        return $this;
+    }
+
+    /**
+     * @return UserInvoice
+     */
+    public function getUserInvoice(): UserInvoice
+    {
+        return $this->userInvoice;
+    }
+
+    /**
+     * @param UserInvoice $userInvoice
+     *
+     * @return Users
+     */
+    public function setUserInvoice(UserInvoice $userInvoice): self
+    {
+        $this->userInvoice = $userInvoice;
 
         return $this;
     }

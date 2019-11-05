@@ -16,18 +16,18 @@ class UserDTO
     private $password;
 
     /**
-     * @var array|null
+     * @var array
      */
     private $roles;
 
     /**
      * UserDTO constructor.
      *
-     * @param string     $username
-     * @param string     $password
-     * @param array|null $roles
+     * @param string $username
+     * @param string $password
+     * @param array  $roles
      */
-    public function __construct(string $username, string $password, array $roles = null)
+    public function __construct(string $username, string $password, array $roles = [])
     {
         $this->username = $username;
         $this->password = $password;
@@ -37,7 +37,7 @@ class UserDTO
     /**
      * @return string
      */
-    public function getUsername()
+    public function getUsername(): string
     {
         return $this->username;
     }
@@ -45,15 +45,15 @@ class UserDTO
     /**
      * @return string
      */
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }
 
     /**
-     * @return array|null
+     * @return array
      */
-    public function getRoles()
+    public function getRoles(): array
     {
         return $this->roles;
     }

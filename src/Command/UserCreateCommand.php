@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Model\UserInvoiceDTO;
 use App\Model\UserDTO;
 use App\Service\UserService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -51,9 +52,11 @@ class UserCreateCommand extends Command
                 'roles',
                 'r',
                 InputOption::VALUE_IS_ARRAY|InputOption::VALUE_OPTIONAL,
-                'Roles',
+                'Roles. For example: [ROLE_ADMIN] or [ROLE_ADMIN, ROLE_MANAGER]',
                 []
             )
+            ->addOption('account', 'a', InputOption::VALUE_OPTIONAL, 'Account of invoice', '')
+            ->addOption('owner', 'o', InputOption::VALUE_OPTIONAL, 'Owner of invoice', '')
         ;
     }
 
@@ -72,8 +75,13 @@ class UserCreateCommand extends Command
             $input->getOption('password'),
             $input->getOption('roles')
         );
+        $userInvoiceDTO = new UserInvoiceDTO(
+            $input->getOption('account'),
+            $input->getOption('owner')
+        );
         try {
             $user = $this->userService->createUser($userDTO);
+            $this->userService->setUserInvoice($user, $userInvoiceDTO);
 
             $this->em->persist($user);
             $this->em->flush();

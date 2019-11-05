@@ -17,7 +17,7 @@ final class Version20191103012201 extends AbstractMigration
      */
     public function getDescription(): string
     {
-        return '';
+        return 'Creation of table Users';
     }
 
     /**
@@ -32,7 +32,7 @@ final class Version20191103012201 extends AbstractMigration
 
         $this->addSql('CREATE SEQUENCE user_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE TABLE "users" (id INT NOT NULL, username VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, roles TEXT NOT NULL, salt VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id))');
-        $this->addSql('COMMENT ON COLUMN "user".roles IS \'(DC2Type:array)\'');
+        $this->addSql('COMMENT ON COLUMN "users".roles IS \'(DC2Type:array)\'');
     }
 
     /**
